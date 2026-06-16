@@ -1,5 +1,18 @@
+# Arquivos de ambiente
 .env
+**/.env
+
+# Certificados Let's Encrypt
 acme.json
+**/acme.json
+
+# Dados locais
 letsencrypt/
+
+# Chaves privadas
 *.pem
 *.key
+
+# Arquivos temporários do sistema
+.DS_Store
+
