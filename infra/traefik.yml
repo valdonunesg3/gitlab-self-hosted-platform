@@ -1,0 +1,27 @@
+api:
+  dashboard: false
+
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    exposedByDefault: false
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "valdo.rsinc@gmail.com"
+      storage: /letsencrypt/acme.json
+
+      dnsChallenge:
+        provider: cloudflare
+
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+

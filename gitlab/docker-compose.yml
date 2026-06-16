@@ -1,0 +1,52 @@
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:18.10.8-ce.0
+
+    container_name: gitlab
+
+    hostname: gitlab2.rsinc.com.br
+
+    restart: always
+
+    shm_size: "1g"
+
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab2.rsinc.com.br'
+
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+
+    ports:
+      - "2222:22"
+
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+
+    networks:
+      - traefik-public
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+
+      - "traefik.http.routers.gitlab.rule=Host(`gitlab.rsinc.com.br`)"
+      - "traefik.http.routers.gitlab.entrypoints=websecure"
+      - "traefik.http.routers.gitlab.tls=true"
+      - "traefik.http.routers.gitlab.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.gitlab.loadbalancer.server.port=80"
+
+volumes:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:
+
+networks:
+  traefik-public:
+    external: true
+
