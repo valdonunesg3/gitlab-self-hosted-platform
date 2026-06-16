@@ -4,7 +4,7 @@ services:
 
     container_name: gitlab
 
-    hostname: gitlab2.rsinc.com.br
+    hostname: seudominio.com.br
 
     restart: always
 
@@ -12,7 +12,7 @@ services:
 
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://gitlab2.rsinc.com.br'
+        external_url 'https://seudominio.com.br'
 
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
@@ -34,7 +34,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
 
-      - "traefik.http.routers.gitlab.rule=Host(`gitlab.rsinc.com.br`)"
+      - "traefik.http.routers.gitlab.rule=Host(`seudominio.com.br`)"
       - "traefik.http.routers.gitlab.entrypoints=websecure"
       - "traefik.http.routers.gitlab.tls=true"
       - "traefik.http.routers.gitlab.tls.certresolver=letsencrypt"
