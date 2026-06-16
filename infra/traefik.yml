@@ -15,7 +15,7 @@ providers:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: "valdo.rsinc@gmail.com"
+      email: "seuemail@dominio.com"
       storage: /letsencrypt/acme.json
 
       dnsChallenge:
